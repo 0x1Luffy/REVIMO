@@ -1,5 +1,7 @@
+import Background from "./components/Background";
+
 function App() {
-  return <div className="bg-red-300">Hello</div>;
+  return <Background />;
 }
 
 export default App;
