@@ -1,0 +1,53 @@
+# Ignore Node.js dependencies
+frontend/node_modules/
+backend/node_modules/
+
+# Logs
+frontend/logs/
+backend/logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build directories
+frontend/build/
+frontend/dist/
+backend/build/
+backend/dist/
+
+# Environment files
+frontend/.env
+backend/.env
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Editor-specific files
+*.swp
+*.swo
+*.vimrc
+.vscode/
+.idea/
+*.iml
+
+# Coverage directories
+frontend/coverage/
+backend/coverage/
+
+# Ignore testing results
+frontend/junit.xml
+backend/junit.xml
+frontend/test-results/
+backend/test-results/
+
+# Ignore temporary files
+frontend/tmp/
+backend/tmp/
+*.tmp
+*.temp
+
+# Ignore other unnecessary files
+frontend/.next/
+frontend/.cache/
