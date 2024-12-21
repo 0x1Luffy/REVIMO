@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +10,7 @@ const SignUp = () => {
   });
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,6 +33,7 @@ const SignUp = () => {
         password: formData.password,
       });
       setSuccess("Account created successfully!");
+      navigate("/");
     } catch (error) {
       setError(
         error.response?.data?.message || "An error occurred. Please try again."
