@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext"; // Import your AuthContext
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +11,7 @@ const SignUp = () => {
   });
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const { setUser } = useContext(AuthContext); // Access the global context
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -32,8 +34,15 @@ const SignUp = () => {
         email: formData.email,
         password: formData.password,
       });
+
+      // Store user data in context
+      setUser({
+        email: response.data.user.email,
+        avatar: "/path/to/default/avatar.jpg", // Default avatar path
+      });
+
       setSuccess("Account created successfully!");
-      navigate("/");
+      navigate("/"); // Redirect to home page
     } catch (error) {
       setError(
         error.response?.data?.message || "An error occurred. Please try again."

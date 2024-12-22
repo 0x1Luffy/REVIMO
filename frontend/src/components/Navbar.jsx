@@ -1,6 +1,16 @@
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 const Navbar = () => {
+  const { user, setUser } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    setUser(null); // Clear user data on logout
+    // Optionally, clear any stored tokens in localStorage/sessionStorage
+    localStorage.removeItem("token");
+  };
+
   return (
     <div className="w-full font-inter">
       <div className="shadow">
@@ -38,18 +48,38 @@ const Navbar = () => {
             </div>
 
             <div className="hidden sm:flex sm:items-center">
-              <Link
-                to="/signin" // Redirects to the Sign In page
-                className="text-white text-sm font-semibold hover:text-purple-400 mr-4"
-              >
-                Sign in
-              </Link>
-              <Link
-                to="/signup" // Redirects to the Sign Up page
-                className="text-white text-sm font-semibold border border-white px-4 py-2 rounded-lg hover:text-purple-400 hover:border-purple-400"
-              >
-                Sign up
-              </Link>
+              {!user ? (
+                // When no user is logged in
+                <>
+                  <Link
+                    to="/signin"
+                    className="text-white text-sm font-semibold hover:text-purple-400 mr-4"
+                  >
+                    Sign in
+                  </Link>
+                  <Link
+                    to="/signup"
+                    className="text-white text-sm font-semibold border border-white px-4 py-2 rounded-lg hover:text-purple-400 hover:border-purple-400"
+                  >
+                    Sign up
+                  </Link>
+                </>
+              ) : (
+                // When user is logged in
+                <div className="flex items-center gap-4">
+                  <img
+                    src={"https://i.ibb.co/9wp4FZ7/male-3d-avatar-free-png.png"} // Use the user's avatar or a default
+                    alt="User Avatar"
+                    className="w-12 h-12 rounded-full"
+                  />
+                  <button
+                    onClick={handleLogout}
+                    className="text-white text-sm font-semibold border border-white px-4 py-2 rounded-lg hover:text-red-400 hover:border-red-400"
+                  >
+                    Logout
+                  </button>
+                </div>
+              )}
             </div>
 
             <div className="sm:hidden cursor-pointer">

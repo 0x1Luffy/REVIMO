@@ -1,10 +1,17 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext"; // Import your AuthContext
 
 const Login = () => {
   const [formData, setFormData] = useState({
-    username: "",
+    email: "",
     password: "",
   });
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const { setUser } = useContext(AuthContext); // Access global user context
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -14,10 +21,39 @@ const Login = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle login logic here
-    console.log("Form submitted:", formData);
+    setError("");
+    setSuccess("");
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/v1/login",
+        formData,
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      // Extract token and user details (if available)
+      const { token, email } = response.data;
+
+      // Save user in global context
+      setUser({
+        email,
+        avatar: "/path/to/default/avatar.jpg", // Use default or fetched avatar
+        token, // Optional: Store token if needed
+      });
+
+      setSuccess("Login successful!");
+      navigate("/"); // Redirect to home page
+    } catch (err) {
+      if (err.response && err.response.data) {
+        setError(err.response.data.message);
+      } else {
+        setError("Something went wrong. Please try again.");
+      }
+    }
   };
 
   return (
@@ -32,16 +68,19 @@ const Login = () => {
         </header>
 
         <form onSubmit={handleSubmit}>
+          {error && <p className="text-red-500 text-sm mb-3">{error}</p>}
+          {success && <p className="text-green-500 text-sm mb-3">{success}</p>}
+
           <div>
-            <label className="block mb-2 text-indigo-500" htmlFor="username">
-              Username
+            <label className="block mb-2 text-indigo-500" htmlFor="email">
+              Email
             </label>
             <input
               className="w-full p-2 mb-6 text-indigo-700 border-b-2 border-indigo-500 outline-none focus:bg-gray-300"
-              type="text"
-              name="username"
-              id="username"
-              value={formData.username}
+              type="email"
+              name="email"
+              id="email"
+              value={formData.email}
               onChange={handleChange}
             />
           </div>
