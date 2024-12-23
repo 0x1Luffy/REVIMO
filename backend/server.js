@@ -3,9 +3,11 @@ const userRoute = require("./routes/userRoute");
 const app = express();
 const dbConnection = require("./config/db");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 app.use(
   cors({

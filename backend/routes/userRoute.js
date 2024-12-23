@@ -82,6 +82,7 @@ router.post(
         { expiresIn: "1h" }
       );
 
+      res.cookie("token", token);
       return res.status(200).json({
         message: "Login successful.",
         token: token,
