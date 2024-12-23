@@ -1,5 +1,6 @@
 const express = require("express");
 const userRoute = require("./routes/userRoute");
+const productRoute = require("./routes/productRoute");
 const app = express();
 const dbConnection = require("./config/db");
 const cors = require("cors");
@@ -18,6 +19,7 @@ app.use(
 );
 
 app.use("/api/v1", userRoute);
+app.use("/api/v1/reviews", productRoute);
 
 app.listen(8080, () => {
   console.log("Server is running on port 8080");
