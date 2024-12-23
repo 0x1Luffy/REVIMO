@@ -61,8 +61,8 @@ const Login = () => {
       <div className="w-full max-w-xs m-auto bg-indigo-100 rounded p-5">
         <header>
           <img
-            className="w-20 mx-auto mb-5"
-            src="/api/placeholder/80/80"
+            className="w-36 mx-auto mb-5"
+            src="https://i.ibb.co/jJPsHVR/man-holding-login-form-2937688-2426390.webp"
             alt="Login logo"
           />
         </header>

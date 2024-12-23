@@ -8,6 +8,7 @@ const productSchema = new mongoose.Schema({
   price: { type: Number, required: true },
   rating: { type: Number, required: true },
   stars: { type: Number, required: true },
+  recommendation: { type: String, required: true },
 });
 
 const Product = mongoose.model("Product", productSchema);

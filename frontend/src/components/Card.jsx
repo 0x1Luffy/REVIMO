@@ -2,7 +2,18 @@ import { Star } from "lucide-react";
 
 const Card = ({ product }) => {
   return (
-    <div className="w-full max-w-sm rounded-lg bg-white p-4 shadow-lg sm:p-6 md:p-8">
+    <div className="w-full max-w-sm rounded-lg bg-white p-4 shadow-lg sm:p-6 md:p-8 relative">
+      {/* Badge */}
+      <div
+        className={`absolute top-2 right-2  z-10 p-2 text-center  text-xs font-semibold rounded-full ${
+          product.recommendation === "Must Buy"
+            ? "bg-green-500 text-white"
+            : "bg-red-500 text-white"
+        }`}
+      >
+        {product.recommendation}
+      </div>
+
       {/* Product Image */}
       <img
         src={product.image}
