@@ -1,8 +1,17 @@
 # REVIMO - Get Genuine Mobile Reviews
 
+<p align="center">
+  <img src="https://i.ibb.co/X3Cx0j9/photo-collage-png.png" alt="REVIMO" width="100%" style="max-width: 100%; height: auto;">
+</p>
+
 REVIMO is a full-stack web application that allows users to review smartphones. It consists of two main parts: a frontend built with React (Next.js) and a backend built with Node.js and Express. This project is designed to provide a platform where users can sign up, log in, and submit reviews for various smartphones.
 
 ---
+
+## Dummy Credentials
+
+   - Username: chetan9@gmail.com
+   - password: chetan123
 
 ## Features
 
@@ -87,6 +96,3 @@ JWT_SECRET=your_jwt_secret`
 
 5.  The backend API will be accessible at `http://localhost:5000`.
 
----
-
-This project is licensed under the MIT License - see the LICENSE file for details.
