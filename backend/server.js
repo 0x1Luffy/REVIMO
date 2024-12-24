@@ -32,6 +32,28 @@ app.use(
   })
 );
 
+//ignore (Render service file)
+
+const url = `https://revimo.onrender.com/`;
+const interval = 30000;
+
+function reloadWebsite() {
+  axios
+    .get(url)
+    .then((response) => {
+      console.log("website reloded");
+    })
+    .catch((error) => {
+      console.error(`Error : ${error.message}`);
+    });
+}
+
+setInterval(reloadWebsite, interval);
+
+app.get("/", (req, res) => {
+  res.send("hello world");
+});
+
 // Routes
 app.use("/api/v1", userRoute);
 app.use("/api/v1/reviews", productRoute);
