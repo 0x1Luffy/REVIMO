@@ -2,11 +2,11 @@ const express = require("express");
 const userRoute = require("./routes/userRoute");
 const productRoute = require("./routes/productRoute");
 const dbConnection = require("./config/db");
-import axios from "axios";
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const fs = require("fs");
 const path = require("path");
+const axios = require("axios");
 
 const app = express();
 
