@@ -5,7 +5,7 @@ export default function FloatingBtn() {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate("/add-review");
+    navigate("/addreview");
   };
 
   return (
