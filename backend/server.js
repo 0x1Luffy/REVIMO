@@ -27,7 +27,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 // CORS configuration
 app.use(
   cors({
-    origin: "https://revimo-backend.vercel.app", // Allow requests from your frontend's origin
+    origin: "https://revimo-frontend.vercel.app", // Allow requests from your frontend's origin
     methods: "GET,POST,PUT,DELETE,OPTIONS",
     allowedHeaders: "Content-Type,Authorization", // Allow necessary headers
   })
