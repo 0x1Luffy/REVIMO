@@ -1,11 +1,16 @@
 import { Star } from "lucide-react";
+import { useContext } from "react";
+import FloatingBtn from "./FloatingBtn";
+import { AuthContext } from "../context/AuthContext";
 
 const Card = ({ product }) => {
+  const { user } = useContext(AuthContext);
+
   return (
-    <div className="w-full max-w-sm rounded-lg bg-white p-4 shadow-lg sm:p-6 md:p-8 relative">
+    <div className="relative w-full max-w-sm rounded-lg bg-white p-4 shadow-lg sm:p-6 md:p-8">
       {/* Badge */}
       <div
-        className={`absolute top-2 right-2  z-10 p-2 text-center  text-xs font-semibold rounded-full ${
+        className={`absolute top-2 right-2 z-10 rounded-full p-2 text-center text-xs font-semibold ${
           product.recommendation === "Must Buy"
             ? "bg-green-500 text-white"
             : "bg-red-500 text-white"
@@ -50,6 +55,9 @@ const Card = ({ product }) => {
           Full Review
         </button>
       </div>
+
+      {/* Render Floating Button Only If User is Logged In */}
+      {user && <FloatingBtn />}
     </div>
   );
 };
