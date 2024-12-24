@@ -10,7 +10,7 @@ const router = express.Router();
 const upload = multer({
   storage: multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, "uploads/"); // Directory to save images
+      cb(null, "/uploads"); // Directory to save images
     },
     filename: (req, file, cb) => {
       cb(null, `${Date.now()}-${file.originalname}`);
@@ -30,8 +30,8 @@ router.post(
   "/create-review",
   tokenValidator,
   upload.fields([
-    { name: "mobileImage", maxCount: 1 },
-    { name: "billImage", maxCount: 1 },
+    { name: "mobileimage", maxCount: 1 },
+    { name: "billimage", maxCount: 1 },
   ]),
   [
     body("title").notEmpty().withMessage("Title is required."),
@@ -68,10 +68,10 @@ router.post(
         rating,
         stars,
         recommendation,
-        mobileImage: req.files.mobileImage
+        mobileimage: req.files.mobileImage
           ? req.files.mobileImage[0].path
           : null,
-        billImage: req.files.billImage ? req.files.billImage[0].path : null,
+        billimage: req.files.billImage ? req.files.billImage[0].path : null,
       });
 
       // Save to the database

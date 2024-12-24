@@ -1,11 +1,12 @@
 import { useState } from "react";
+import axios from "axios";
 
 const ModernInputForm = () => {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    mobileImage: null,
-    billImage: null,
+    mobileimage: null,
+    billimage: null,
     price: "",
     rating: "",
     stars: "",
@@ -13,8 +14,8 @@ const ModernInputForm = () => {
   });
 
   const [previews, setPreviews] = useState({
-    mobileImage: null,
-    billImage: null,
+    mobileimage: null,
+    billimage: null,
   });
 
   const handleInputChange = (e) => {
@@ -60,43 +61,41 @@ const ModernInputForm = () => {
     }
 
     try {
-      const response = await fetch(
-        "http://localhost:8080/api/v1/reviews/create-review",
+      const response = await axios.post(
+        "https://revimo-backend.vercel.app/api/v1/reviews/create-review",
+        formDataToSend,
         {
-          method: "POST",
           headers: {
             "Content-Type": "multipart/form-data",
-            // Add authorization headers if needed
-            // "Authorization": `Bearer ${token}`,
+            // Include authorization headers if needed
+            // Authorization: `Bearer ${token}`,
           },
-          body: formDataToSend,
         }
       );
 
-      const data = await response.json();
-      if (response.ok) {
-        // Handle success (e.g., show a success message, reset form)
-        console.log("Product created:", data);
-        setFormData({
-          title: "",
-          description: "",
-          mobileImage: null,
-          billImage: null,
-          price: "",
-          rating: "",
-          stars: "",
-          recommendation: "buy",
-        });
-        setPreviews({
-          mobileImage: null,
-          billImage: null,
-        });
-      } else {
-        // Handle error response
-        console.error("Failed to create product:", data.error);
-      }
+      // Handle success response
+      console.log("Product created:", response.data);
+      setFormData({
+        title: "",
+        description: "",
+        mobileImage: null,
+        billImage: null,
+        price: "",
+        rating: "",
+        stars: "",
+        recommendation: "buy",
+      });
+      setPreviews({
+        mobileImage: null,
+        billImage: null,
+      });
     } catch (error) {
-      console.error("Error submitting form:", error);
+      // Handle error response
+      if (error.response) {
+        console.error("Failed to create product:", error.response.data.error);
+      } else {
+        console.error("Error submitting form:", error.message);
+      }
     }
   };
 

@@ -12,7 +12,7 @@ const Home = () => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8080/api/v1/reviews/get-products"
+          "https://revimo-backend.vercel.app/api/v1/reviews/get-products"
         );
         setProducts(response.data); // Set the fetched data
       } catch (error) {

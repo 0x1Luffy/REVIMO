@@ -28,7 +28,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/v1/login",
+        "https://revimo-backend.vercel.app/api/v1/login",
         formData,
         {
           headers: { "Content-Type": "application/json" },

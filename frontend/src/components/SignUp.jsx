@@ -30,10 +30,13 @@ const SignUp = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:8080/api/v1/signup", {
-        email: formData.email,
-        password: formData.password,
-      });
+      const response = await axios.post(
+        "https://revimo-backend.vercel.app/api/v1/signup",
+        {
+          email: formData.email,
+          password: formData.password,
+        }
+      );
 
       // Store user data in context
       setUser({
