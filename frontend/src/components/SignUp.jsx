@@ -31,7 +31,7 @@ const SignUp = () => {
 
     try {
       const response = await axios.post(
-        "https://revimo-backend.vercel.app/api/v1/signup",
+        "https://revimo.onrender.com/api/v1/signup",
         {
           email: formData.email,
           password: formData.password,

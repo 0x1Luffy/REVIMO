@@ -62,7 +62,7 @@ const ModernInputForm = () => {
 
     try {
       const response = await axios.post(
-        "https://revimo-backend.vercel.app/api/v1/reviews/create-review",
+        "https://revimo.onrender.com/api/v1/reviews/create-review",
         formDataToSend,
         {
           headers: {
