@@ -1,98 +1,162 @@
-# REVIMO - Get Genuine Mobile Reviews
+# Revimo - DevOps Practices Branch
 
-<p align="center">
-  <img src="https://i.ibb.co/X3Cx0j9/photo-collage-png.png" alt="REVIMO" width="100%" style="max-width: 100%; height: auto;">
-</p>
+![Revimo DevOps Banner](https://chatgpt.com/c/assets/revimo-devops-banner.png)
 
-REVIMO is a full-stack web application that allows users to review smartphones. It consists of two main parts: a frontend built with React (Next.js) and a backend built with Node.js and Express. This project is designed to provide a platform where users can sign up, log in, and submit reviews for various smartphones.
+Welcome to the **DevOps** branch of Revimo! This branch showcases DevOps practices for deploying, monitoring, and managing the Revimo application using industry-standard tools and techniques.
 
----
+## Table of Contents
 
-## Dummy Credentials
+-   [About This Branch](https://chatgpt.com/c/6788a89c-39e8-800b-a01f-dbd6b093dcab#about-this-branch)
+-   [Tools and Technologies](https://chatgpt.com/c/6788a89c-39e8-800b-a01f-dbd6b093dcab#tools-and-technologies)
+-   [CI/CD Pipeline](https://chatgpt.com/c/6788a89c-39e8-800b-a01f-dbd6b093dcab#ci-cd-pipeline)
+-   [Monitoring and Logging](https://chatgpt.com/c/6788a89c-39e8-800b-a01f-dbd6b093dcab#monitoring-and-logging)
+-   [Infrastructure as Code (IaC)](https://chatgpt.com/c/6788a89c-39e8-800b-a01f-dbd6b093dcab#infrastructure-as-code-iac)
+-   [Getting Started](https://chatgpt.com/c/6788a89c-39e8-800b-a01f-dbd6b093dcab#getting-started)
+-   [Contributing](https://chatgpt.com/c/6788a89c-39e8-800b-a01f-dbd6b093dcab#contributing)
 
-   - Username: chetan9@gmail.com
-   - password: chetan123
+## About This Branch
 
-## Features
+> ⚠️ **Alert**: You are currently in the `DevOps` branch. This branch focuses on DevOps practices. If you need the application code, please switch to the `main` branch. ⚠️ This branch is dedicated to implementing DevOps practices for the Revimo project. It covers everything from setting up CI/CD pipelines to monitoring and managing the application's infrastructure.
 
-- **Frontend**:
+## Tools and Technologies
 
-  - User signup and login.
-  - Smartphone review system (view and submit reviews).
-  - Responsive design with mobile and desktop support.
+-   **Version Control**: Git and GitHub
+-   **CI/CD**: Jenkins, GitHub Actions
+-   **Containerization**: Docker
+-   **Orchestration**: Kubernetes (AWS EKS)
+-   **Monitoring**: Prometheus and Grafana
+-   **GitOps**: ArgoCD
+-   **IaC**: Terraform and AWS CLI
+-   **Code Quality**: SonarQube
 
-- **Backend**:
+## CI/CD Pipeline
 
-  - RESTful API built with Node.js and Express.
-  - Authentication and user management with JWT tokens.
-  - MongoDB integration for storing user and review data.
+### Overview
 
----
+The CI/CD pipeline automates the building, testing, and deployment of the Revimo application. Here's what the pipeline includes:
 
-## Frontend Setup
+1.  **Build Stage**: Build Docker images for the frontend and backend.
+2.  **Test Stage**: Run unit and integration tests.
+3.  **Deployment Stage**: Deploy the application to an AWS EKS cluster.
 
-1.  **Navigate to the `frontend` directory**:
+### Jenkins Pipeline Example
 
-    bash
+```groovy
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                sh 'docker build -t revimo-frontend ./frontend'
+                sh 'docker build -t revimo-backend ./backend'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'npm run test --prefix frontend'
+                sh 'npm run test --prefix backend'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh 'kubectl apply -f kubernetes-manifests/'
+            }
+        }
+    }
+}
 
-    Copy code
+```
 
-    `cd frontend`
+## Monitoring and Logging
 
-2.  **Install dependencies**:
+### Prometheus and Grafana
 
-    bash
+-   **Prometheus**: Collects application and system metrics.
+-   **Grafana**: Visualizes metrics through dashboards.
 
-    Copy code
+### Logging
 
-    `npm install`
+-   **Fluentd**: For log aggregation.
+-   **AWS CloudWatch**: For centralized logging.
 
-3.  **Run the development server**:
+## Infrastructure as Code (IaC)
 
-    bash
+Using **Terraform**, we provision and manage AWS resources such as:
 
-    Copy code
+-   Amazon EKS Cluster
+-   IAM Roles and Policies
+-   Amazon RDS for database management
+-   Elastic Load Balancer for application traffic
 
-    `npm run dev`
+### Example Terraform Configuration
 
-4.  The frontend will be accessible at `http://localhost:3000`.
+```hcl
+provider "aws" {
+  region = "us-east-1"
+}
 
----
+resource "aws_eks_cluster" "revimo" {
+  name     = "revimo-cluster"
+  role_arn = aws_iam_role.eks_role.arn
 
-## Backend Setup
+  vpc_config {
+    subnet_ids = [aws_subnet.public_subnet.id]
+  }
+}
 
-1.  **Navigate to the `backend` directory**:
+```
 
-    bash
+## Getting Started
 
-    Copy code
+### Prerequisites
 
-    `cd backend`
+-   Docker installed on your local machine
+-   Kubernetes cluster (AWS EKS recommended)
+-   AWS CLI configured with appropriate permissions
 
-2.  **Install dependencies**:
+### Steps
 
-    bash
+1.  Clone the repository and switch to the `DevOps` branch:
+    
+    ```bash
+    git clone https://github.com/chetan-kesare/revimo.git
+    cd revimo
+    git checkout DevOps
+    
+    ```
+    
+2.  Set up infrastructure using Terraform:
+    
+    ```bash
+    cd terraform
+    terraform init
+    terraform apply
+    
+    ```
+    
+3.  Build and deploy the application:
+    
+    ```bash
+    cd ..
+    docker-compose up --build
+    kubectl apply -f kubernetes-manifests/
+    
+    ```
+    
+4.  Access monitoring dashboards:
+    -   Prometheus: `http://<prometheus-url>`
+    -   Grafana: `http://<grafana-url>`
 
-    Copy code
+## Contributing
 
-    `npm install`
+Contributions to the **DevOps** branch are welcome! If you have suggestions for new tools, improvements, or find any issues, please:
 
-3.  **Set up environment variables** \(Create a `.env` file in the `backend` directory):
+1.  Fork this repository.
+2.  Create a new branch (`git checkout -b feature-name`).
+3.  Commit your changes (`git commit -m 'Add feature'`).
+4.  Push the branch (`git push origin feature-name`).
+5.  Open a pull request.
 
-    bash
+------
 
-    Copy code
-
-    `MONGO_URI=YOUR MONGO CONNECTION STRING
-JWT_SECRET=your_jwt_secret`
-
-4.  **Run the backend server**:
-
-    bash
-
-    Copy code
-
-    `node server.js`
-
-5.  The backend API will be accessible at `http://localhost:5000`.
-
+**Happy DevOps-ing! 🚀**
